@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1 class="text-center mt-5">survei pelanggan setia</h1>
+    <div class="container">
+        <form action="/submit" method="POST">  
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Full Name</label>
+              <input type="text" class="form-control" name="fullname" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Berikan saran kamu untuk cafe ini</label>
+              <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" name="suggest" id="floatingTextarea" required></textarea>
+                <label for="floatingTextarea">Comments</label>
+              </div>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <div class="mb-3">
+                <select class="form-select" name="rating" aria-label="Default select example">
+                    <option value="0" selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">four</option>
+                    <option value="5">Five</option>
+                  </select>
+            </div>
+            <div class="mb-3">
+                <label for="coming" class="form-label">How many times come to the cafe?</label>
+                <div class="form-control">
+                <input type="radio" class="btn-check" name="coming" value="0" id="danger-outlined" autocomplete="off">
+                <label class="btn btn-outline-danger" for="danger-outlined">Never (0)</label>
+                
+                <input type="radio" class="btn-check" name="coming" value="1"  id="warning-outlined" autocomplete="off">
+                <label class="btn btn-outline-warning" for="warning-outlined">Rarely (1)</label>
+             
+                <input type="radio" class="btn-check" name="coming" value="2"  id="info-outlined" autocomplete="off" >
+                <label class="btn btn-outline-info" for="info-outlined">Occasionally (2)</label>
+                
+                <input type="radio" class="btn-check" name="coming" value="3"  id="primary-outlined" autocomplete="off" >
+                <label class="btn btn-outline-primary" for="primary-outlined">Most of the time (3)</label>
+                
+                <input type="radio" class="btn-check" name="coming" value="4"  id="success-outlined" autocomplete="off" checked>
+                <label class="btn btn-outline-success" for="success-outlined">All of the time (4)</label>
+              </div>  
+              </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+          <div class="container mt-5">
+            <table class="table table-dark">
+                <thead>
+                  <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Suggestion</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">How many come</th>
+                    <th scope="col">Sum of</th>
+                    <th scope="col">Avarage</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {% for i in submissions %}
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ i[1] }}</td>
+                    <td>{{ i[2] }}</td>
+                    <td>{{ i[3] }}</td>
+                    <td>{{ i[4] }}</td>
+                    <td>{{ i[3]+i[4] }}</td>
+                    <td>{{ (i[3]+i[4]) /2 }}</td>
+                    <td>
+                        <a href="" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#">Update</a>
+                        <a href="{{ url_for('delete', id=i[0])}}" type="button" class="btn btn-outline-danger" onclick="return confirm('Are you sure delete this data ?');">Delete</a>
+                           
+                    </td>
+                  </tr>
+                </tbody>
+                {% endfor %}
+              </table>
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
